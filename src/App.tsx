@@ -1,9 +1,10 @@
 import { TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import ServerSwitchButton from './common/ServerSwitchButton';
 import CrossWorldView from './server-view/CrossWorldView';
 import IndividualWorldView from './server-view/IndividualWorldView';
+import axios from 'axios';
 
 function App() {
 //add last sold timers to buttons
@@ -51,6 +52,15 @@ function App() {
   const [currentView, setCurrentView] = useState('cross-world-view');
   const [searchInput, setSearchInput] = useState('');
 
+  const getItems = (item_name: string) => {
+    axios.get(`http://localhost:8000/search-itemname?item_name=${item_name.toLowerCase()}`)
+      .then((res) => {
+        console.log('RES: ' + JSON.stringify(res));
+      })
+      .catch((err) => {
+        console.log('ERR: ' + err);
+      })
+  }
   const switchView = (viewType: string) => {
     setCurrentView(viewType);
   }
@@ -59,25 +69,14 @@ function App() {
   const handleSearch = (e: any) => {
     e.preventDefault();
     setSearchInput(e.target.value);
-    console.log(searchInput)
   }
   
   const handleKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
-      console.log('call API')
-      console.log(searchInput)
+    if (e.key === 'Enter' && searchInput.length > 0) {
+      getItems(searchInput);
     }
   }
 
-  // const switchView = () => {
-  //   setCurrentView('cross-world-view');
-  // }
-
-  // const switchViewOther = () => {
-  //   setCurrentView('other');
-  // }
-
-  
   return (
     <div>
       {/* add home button via svg icon */}
@@ -98,37 +97,7 @@ function App() {
         <h1>SPACE FOR IMAGE AND ITEM NAME AND ITEM TYPE</h1>
       </div>
 
-
-      
-
       <div className='crystal-servers'>
-        {/* <Button onClick={switchView} variant="outlined">
-          Cross-World
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Balmung
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Brynhildr
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Coeurl
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Diabolos
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Goblin
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Malboro
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Mateus
-        </Button>
-        <Button onClick={switchView} variant="outlined">
-          Zalera
-        </Button> */}
         {
           buttonConfig.map((ele, index) => {
             const { buttonName, viewType } = ele;
