@@ -1,0 +1,21 @@
+.time-last-sold{
+    color: pink;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.summary-of-item{
+    color: lightpink;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.normal-quality {
+    display: flex;
+}
+
+.high-quality {
+    display:flex;
+}
