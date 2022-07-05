@@ -17,20 +17,19 @@ function SearchBar({ placeholder, data }: SearchBarProp) {
     const [filteredData, setFilteredData] = useState<FilteredData[] | []>([]);
     const [wordEntered, setWordEntered] = useState('');
 
-
     const handleFilter = (event: any) => {
         const searchWord: string = event.target.value
         setWordEntered(searchWord);
-        const newFilter = data.filter((value: { title: string }) => {
-            return value.title.toLowerCase().includes(searchWord.toLowerCase());
-        });
-
-        if (searchWord === '') {
-            setFilteredData([]);
-        } else {
-            setFilteredData(newFilter);
-        }
+        handleSearchableItems(searchWord);
     };
+
+    const handleSearchableItems = (searchWord: string) => {
+        const tempFiltered = data.filter((value: { title: string }) => // the format of filter has to be updated
+            value.title.toLowerCase().includes(searchWord.toLowerCase())
+        );
+        const filteredWords = tempFiltered.length > 0 ? tempFiltered : [];
+        setFilteredData(filteredWords)
+    }
 
     const clearInput = () => {
         setFilteredData([]);
