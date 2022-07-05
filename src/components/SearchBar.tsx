@@ -5,34 +5,24 @@ import CloseIcon from '@mui/icons-material/Close';
 
 interface SearchBarProp {
     placeholder: string;
-    data: any;
+    getItems: Function;
 }
-
-interface FilteredData {
-    link: string;
-    title: string;
+interface SearchedItemsData {
+    item_id: string;
+    item_name: string;
+    item_icon: string;
 }
-
-function SearchBar({ placeholder, data }: SearchBarProp) {
-    const [filteredData, setFilteredData] = useState<FilteredData[] | []>([]);
+function SearchBar({ placeholder, getItems }: SearchBarProp) {
     const [wordEntered, setWordEntered] = useState('');
+    const [filteredWords, setFilteredWords] = useState<SearchedItemsData[]>([]);
 
-    const handleFilter = (event: any) => {
+    const handleFilter = async (event: any) => {
         const searchWord: string = event.target.value
         setWordEntered(searchWord);
-        handleSearchableItems(searchWord);
+        setFilteredWords(await getItems(wordEntered));
     };
 
-    const handleSearchableItems = (searchWord: string) => {
-        const tempFiltered = data.filter((value: { title: string }) => // the format of filter has to be updated
-            value.title.toLowerCase().includes(searchWord.toLowerCase())
-        );
-        const filteredWords = tempFiltered.length > 0 ? tempFiltered : [];
-        setFilteredData(filteredWords)
-    }
-
     const clearInput = () => {
-        setFilteredData([]);
         setWordEntered('');
     }
 
@@ -46,17 +36,17 @@ function SearchBar({ placeholder, data }: SearchBarProp) {
                     onChange={handleFilter}
                 />
                 <div className='searchIcon'>
-                    {filteredData.length === 0
+                    {wordEntered.length === 0
                         ? <SearchIcon />
                         : <CloseIcon id='clearBtn' onClick={clearInput} />}
                 </div>
             </div>
-            {filteredData.length !== 0 && (
+            {filteredWords.length > 0 && (
                 <div className='dataResult'>
-                    {filteredData.slice(0, 5).map((value, key) => {
+                    {filteredWords.map((value) => {
                         return (
-                            <a className='dataItem' href={value.link} target='blank'>
-                                <p>{value.title}</p>
+                            <a className='dataItem' target='blank'>
+                                <p>{value.item_name}</p>
                             </a>
                         );
                     })}

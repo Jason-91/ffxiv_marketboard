@@ -4,7 +4,7 @@ import CrossWorldView from './server-view/CrossWorldView';
 import IndividualWorldView from './server-view/IndividualWorldView';
 import axios from 'axios';
 import SearchBar from './components/SearchBar';
-import BookData from './Data.json'
+// import BookData from './Data.json'
 import { useState } from 'react';
 
 function App() {
@@ -53,15 +53,20 @@ function App() {
   const [currentView, setCurrentView] = useState('cross-world-view');
   const [searchInput, setSearchInput] = useState('');
 
-  const getItems = (item_name: string) => {
-    axios.get(`http://localhost:8000/search-itemname?item_name=${item_name.toLowerCase()}`)
+  const getItems = async (item_name: string) => {
+    let result: any[] = [];
+
+    await axios.get(`http://localhost:8000/search-itemname?item_name=${item_name.toLowerCase()}`)
       .then((res: any) => {
-        console.log('RES: ' + JSON.stringify(res));
+        result = res.data.data;
       })
       .catch((err: string) => {
         console.log('ERR: ' + err);
-      })
+      });
+
+    return result;
   }
+
   const switchView = (viewType: string) => {
     setCurrentView(viewType);
   }
@@ -81,7 +86,7 @@ function App() {
   return (
     <div>
       <div>
-        <SearchBar placeholder='Enter a Book Name...' data={BookData} />
+        <SearchBar placeholder='Enter a Book Name...' getItems={getItems} />
       </div>
       {/* <div className='search-bar-container'>
         <TextField id="filled-basic" label="Search" variant="filled" value={searchInput} onChange={handleSearch} onKeyDown={handleKeyDown}/>  
