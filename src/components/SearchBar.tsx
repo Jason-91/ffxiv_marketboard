@@ -19,10 +19,16 @@ function SearchBar({ placeholder, getItems }: SearchBarProp) {
     const handleFilter = async (event: any) => {
         const searchWord: string = event.target.value
         setWordEntered(searchWord);
-        setFilteredWords(await getItems(wordEntered));
     };
 
+    const handleOnKeyDown = async (e: any) => {
+        if(e.key === 'Enter' && wordEntered.length > 0) {
+            setFilteredWords(await getItems(wordEntered));
+        }
+    }
+
     const clearInput = () => {
+        setFilteredWords([]);
         setWordEntered('');
     }
 
@@ -34,6 +40,7 @@ function SearchBar({ placeholder, getItems }: SearchBarProp) {
                     placeholder={placeholder}
                     value={wordEntered}
                     onChange={handleFilter}
+                    onKeyDown={handleOnKeyDown}
                 />
                 <div className='searchIcon'>
                     {wordEntered.length === 0
