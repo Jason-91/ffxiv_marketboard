@@ -1,10 +1,11 @@
 import { TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import HomeIcon from '@mui/icons-material/Home';
 import ServerSwitchButton from './common/ServerSwitchButton';
 import CrossWorldView from './server-view/CrossWorldView';
 import IndividualWorldView from './server-view/IndividualWorldView';
 import axios from 'axios';
+import SearchBar from './components/SearchBar';
+import BookData from './Data.json'
+import { useState } from 'react';
 
 function App() {
 //add last sold timers to buttons
@@ -54,10 +55,10 @@ function App() {
 
   const getItems = (item_name: string) => {
     axios.get(`http://localhost:8000/search-itemname?item_name=${item_name.toLowerCase()}`)
-      .then((res) => {
+      .then((res: any) => {
         console.log('RES: ' + JSON.stringify(res));
       })
-      .catch((err) => {
+      .catch((err: string) => {
         console.log('ERR: ' + err);
       })
   }
@@ -65,33 +66,26 @@ function App() {
     setCurrentView(viewType);
   }
 
-  //bad practice; update later, newb
-  const handleSearch = (e: any) => {
-    e.preventDefault();
-    setSearchInput(e.target.value);
-  }
+  // //bad practice; update later, newb
+  // const handleSearch = (e: any) => {
+  //   e.preventDefault();
+  //   setSearchInput(e.target.value);
+  // }
   
-  const handleKeyDown = (e: any) => {
-    if (e.key === 'Enter' && searchInput.length > 0) {
-      getItems(searchInput);
-    }
-  }
+  // const handleKeyDown = (e: any) => {
+  //   if (e.key === 'Enter' && searchInput.length > 0) {
+  //     getItems(searchInput);
+  //   }
+  // }
 
   return (
     <div>
-      {/* add home button via svg icon */}
-      <div><HomeIcon /></div>
-      <div className='search-bar-container'>
-        <TextField id="filled-basic" label="Search" variant="filled" value={searchInput} onChange={handleSearch} onKeyDown={handleKeyDown}/>
-        {/* user can search item with item name
-        once user presses enter, items with that string in the name will be on drop down list
-        user can click specific item from drop down list to pull up page
-        if item does not exist, found 0/0 results
-        show top 50 results by ilvl or by item id number
-        Obtain top 50 results, on click, send item id number back to API to return results
-         */}
-      
+      <div>
+        <SearchBar placeholder='Enter a Book Name...' data={BookData} />
       </div>
+      {/* <div className='search-bar-container'>
+        <TextField id="filled-basic" label="Search" variant="filled" value={searchInput} onChange={handleSearch} onKeyDown={handleKeyDown}/>  
+      </div> */}
 
       <div>
         <h1>SPACE FOR IMAGE AND ITEM NAME AND ITEM TYPE</h1>

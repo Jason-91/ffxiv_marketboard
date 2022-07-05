@@ -28,6 +28,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+
+// const name = 'jason'
+
+// {
+//   name: 'jason'
+// }
+// {
+//   name: name
+// }
+// {
+//   name
+// }
+
 function createData(
   num: number,
   server: string,
@@ -43,11 +56,17 @@ function createData(
   return { num, server, quality, price, quantity, total, percent, retainer, buyer, date };
 }
 
+// const rows = [
+//   createData(1, 'Balmung', true, 50000, 1, 50000, 0, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
+//   createData(2, 'Coeurl', true, 51000, 1, 51000, 1, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
+//   createData(3, 'Zalera', true, 53000, 1, 53000, 2, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
+//   createData(4, 'Malboro', true, 53500, 1, 53500, 2.5, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
+// ];
 const rows = [
-  createData(1, 'Balmung', true, 50000, 1, 50000, 0, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
-  createData(2, 'Coeurl', true, 51000, 1, 51000, 1, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
-  createData(3, 'Zalera', true, 53000, 1, 53000, 2, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
-  createData(4, 'Malboro', true, 53500, 1, 53500, 2.5, 'Nyanmaru', 'Kitty Rawwr', '25 Jun, 20:15'),
+  { num: 1, server: 'Balmung', quality: true, price: 50000, quantity: 1, total: 50000, percent: 0, retainer: 'Nyanmaru', buyer: 'Kitty Rawwr', date: '25 Jun, 20:15' },
+  { num: 2, server: 'Coeurl', quality: true, price: 51000, quantity: 1, total: 51000, percent: 1, retainer: 'Nyanmaru', buyer: 'Kitty Rawwr', date: '25 Jun, 20:15' },
+  { num: 3, server: 'Zalera', quality: true, price: 53000, quantity: 1, total: 53000, percent: 2, retainer: 'Nyanmaru', buyer: 'Kitty Rawwr', date: '25 Jun, 20:15' },
+  { num: 4, server: 'Malboro', quality: true, price: 53500, quantity: 1, total: 53500, percent: 2.5, retainer: 'Nyanmaru', buyer: 'Kitty Rawwr', date: '25 Jun, 20:15' },
 ];
 
 export default function HighPurchaseTable() {
@@ -82,7 +101,7 @@ export default function HighPurchaseTable() {
               <StyledTableCell align="right">{row.percent}</StyledTableCell>
               <StyledTableCell align="right">{row.retainer}</StyledTableCell>
               <StyledTableCell align="right">{row.buyer}</StyledTableCell>
-              <StyledTableCell align="right">{row.date}</StyledTableCell>              
+              <StyledTableCell align="right">{row.date}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

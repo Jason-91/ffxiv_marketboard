@@ -29,8 +29,8 @@ function CrossWorldView() {
         <div className='cross-world-view'>
             <div className='summary-of-item'>
                 <div>
-                    <h4>Cheapest HQ</h4>
-                    1 x 100,000
+                    <div><h2>Cheapest HQ</h2></div>
+                    <div><h3>1 x 100,000</h3><h6>Server: Goblin- Total: 900,000</h6></div>
                 </div>
                 <div>
                     <h4> Cheapest NQ</h4>
@@ -55,6 +55,12 @@ function CrossWorldView() {
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgb(255, 99, 132)',
                             data: [0, 10, 5, 2, 20, 30, 45],
+                        }, {
+                            type: 'bar',
+                            label: 'Bar Dataset',
+                            data: [10, 20, 30, 40],
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)'
                         }]
                     }}
                 />
