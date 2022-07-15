@@ -52,6 +52,7 @@ function SearchBar({ placeholder, getItems }: SearchBarProp) {
                 <div className='dataResult'>
                     {filteredWords.map((value) => {
                         return (
+                            // eslint-disable-next-line jsx-a11y/anchor-is-valid
                             <a className='dataItem' target='blank'>
                                 <p>{value.item_name}</p>
                             </a>

@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import ServerSwitchButton from './common/ServerSwitchButton';
 import CrossWorldView from './server-view/CrossWorldView';
 import IndividualWorldView from './server-view/IndividualWorldView';
@@ -8,7 +7,7 @@ import SearchBar from './components/SearchBar';
 import { useState } from 'react';
 
 function App() {
-//add last sold timers to buttons
+  //add last sold timers to buttons
   const buttonConfig = [
     {
       buttonName: 'Cross-World',
@@ -47,11 +46,11 @@ function App() {
       viewType: 'individual-world-view'
     },
   ];
-  
+
   //react hook
   //current state, method to update state
   const [currentView, setCurrentView] = useState('cross-world-view');
-  const [searchInput, setSearchInput] = useState('');
+  // const [searchInput, setSearchInput] = useState('');
 
   const getItems = async (item_name: string) => {
     let result: any[] = [];
@@ -76,7 +75,7 @@ function App() {
   //   e.preventDefault();
   //   setSearchInput(e.target.value);
   // }
-  
+
   // const handleKeyDown = (e: any) => {
   //   if (e.key === 'Enter' && searchInput.length > 0) {
   //     getItems(searchInput);
@@ -86,7 +85,7 @@ function App() {
   return (
     <div>
       <div>
-        <SearchBar placeholder='Enter a Book Name...' getItems={getItems} />
+        <SearchBar placeholder='Enter Item Name...' getItems={getItems} />
       </div>
       {/* <div className='search-bar-container'>
         <TextField id="filled-basic" label="Search" variant="filled" value={searchInput} onChange={handleSearch} onKeyDown={handleKeyDown}/>  
