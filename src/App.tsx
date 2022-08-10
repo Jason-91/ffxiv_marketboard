@@ -4,9 +4,12 @@ import IndividualWorldView from './server-view/IndividualWorldView';
 import axios from 'axios';
 import SearchBar from './components/SearchBar';
 // import BookData from './Data.json'
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const currentView = useSelector((state: any) => state.currentView.value);
+
   //add last sold timers to buttons
   const buttonConfig = [
     {
@@ -47,9 +50,8 @@ function App() {
     },
   ];
 
-  //react hook
-  //current state, method to update state
-  const [currentView, setCurrentView] = useState('cross-world-view');
+
+  // const [currentView, setCurrentView] = useState('cross-world-view');
   // const [searchInput, setSearchInput] = useState('');
 
   const getItems = async (item_name: string) => {
@@ -66,9 +68,10 @@ function App() {
     return result;
   }
 
-  const switchView = (viewType: string) => {
-    setCurrentView(viewType);
-  }
+  // useDispatch; dispatching action
+  // const switchView = (viewType: string) => {
+  //   setCurrentView(viewType);
+  // }
 
   // //bad practice; update later, newb
   // const handleSearch = (e: any) => {
@@ -104,7 +107,7 @@ function App() {
                 key={index}
                 buttonName={buttonName}
                 viewType={viewType}
-                switchMethod={switchView}
+                // switchMethod={switchView}
               ></ServerSwitchButton>
             )
           })
@@ -112,6 +115,7 @@ function App() {
       </div>
 
       <div className='all-servers-content-container'>
+        {/* useSelector; reading data */}
         {currentView === 'cross-world-view'
           ? <CrossWorldView />
           : <IndividualWorldView />
